@@ -1,0 +1,19 @@
+Generic single-database configuration.
+
+マイグレーションの作り方
+
+```ps
+alembic init migrations
+```
+
+init に DB のパス、env.py にモデルを示す。
+
+```ps
+alembic revision --autogenerate -m "Create items table"
+```
+
+適応して確認する
+
+```ps
+alembic upgrade head
+```
