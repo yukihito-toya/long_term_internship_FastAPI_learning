@@ -26,5 +26,26 @@ class Item(BaseModel):
     status: ItemStatus = Field(examples=[ItemStatus.ON_SALE])
     created_at: datetime
     updated_at: datetime
+    user_id: int
 
     model_config = ConfigDict(from_attributes=True)
+
+class UserCreate(BaseModel):
+    username: str = Field(min_length=2, max_length=50, examples=["user1", "user2"])
+    password: str = Field(min_length=8, max_length=20, examples=["password1", "password2"])
+
+class User(BaseModel):
+    id: int = Field(gt=0, examples=[1, 2])
+    username: str = Field(min_length=2, max_length=50, examples=["user1", "user2"])
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str
+    user_id: int

@@ -3,3 +3,9 @@ fastapi==0.115.12
 sqlalchemy==2.0.40
 psycopg2==2.9.10
 alembic==1.15.2
+python-multipart==0.0.20
+python_jose==3.4.0
+pytest==8.3.5
+httpx==0.28.1
+python_dotenv==1.1.0
+pydantic_settings==2.8.1

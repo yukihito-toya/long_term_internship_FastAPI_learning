@@ -1,0 +1,5 @@
+失敗するコマンド
+curl -X OPTIONS -H "Origin: http://localhost:3001" -H "Access-Control-Request-Method: GET" http://localhost:8000/items -i
+
+成功するコマンド
+curl -X OPTIONS -H "Origin: http://localhost:3000" -H "Access-Control-Request-Method: GET" http://localhost:8000/items -i

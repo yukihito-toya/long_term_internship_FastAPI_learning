@@ -4,3 +4,11 @@ python -m venv .venv
 python -m pip install --upgrade pip
 pip install -r .\requirements.txt
 ```
+
+```ps
+uvicorn app_1744251140387:app --reload
+```
+
+```ps
+pytest .\tests\test_1744685175533.py
+```

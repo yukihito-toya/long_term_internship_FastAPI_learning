@@ -2,8 +2,6 @@
 Module Name: m1744250309517.py
 Description: Item management module
 """
-from enum import Enum
-from typing import Optional
 from sqlalchemy.orm import Session
 
 from modules.m1744258408460 import ItemCreate, ItemUpdate
@@ -33,8 +31,8 @@ from models import Item
 def find_all(db: Session):
   return db.query(Item).all()
 
-def find_by_id(db: Session, item_id: int):
-  return db.query(Item).filter(Item.id == item_id).first()
+def find_by_id(db: Session, item_id: int, user_id: int) -> Item | None:
+  return db.query(Item).filter(Item.id == item_id).filter(Item.user_id == user_id).first()
   # for item in items:
   #   if item.id == item_id:
   #     return item
@@ -44,17 +42,18 @@ def find_by_name(db: Session, name: str):
   return db.query(Item).filter(Item.name.like(f"%{name}%")).all()
   # return [item for item in items if name in item.name]
 
-def create_item(db: Session, item_create: ItemCreate):
+def create_item(db: Session, item_create: ItemCreate, user_id: int) -> Item:
   item = Item(
     **item_create.model_dump(),
+    user_id=user_id,
   )
   db.add(item)
   db.commit()
   return item
 
-def update_item(db:Session, item_id: int, item_update: ItemUpdate):
+def update_item(db:Session, item_id: int, item_update: ItemUpdate, user_id: int) -> Item | None:
   # item = find_by_id(item_id)
-  item = find_by_id(db, item_id)
+  item = find_by_id(db, item_id, user_id)
   if item is None:
     return None
   
@@ -70,9 +69,9 @@ def update_item(db:Session, item_id: int, item_update: ItemUpdate):
   db.commit()
   return item
 
-def delete_item(db:Session, item_id: int):
+def delete_item(db:Session, item_id: int, user_id: int) -> Item | None:
   # item = find_by_id(item_id)
-  item = find_by_id(db, item_id)
+  item = find_by_id(db, item_id, user_id)
   if item is None:
     return None
   # items.remove(item)
